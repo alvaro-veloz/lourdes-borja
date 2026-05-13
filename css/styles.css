@@ -1575,6 +1575,27 @@ video.hero__video {
     --nav-h: 64px;
   }
 
+  /* Nav oculto al cargar — aparece solo al hacer scroll */
+  .nav {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    pointer-events: none;
+  }
+
+  .nav.scrolled {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Cuando el menú está abierto también se muestra */
+  .nav.nav--open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
   .nav__actions {
     margin-left: auto;
   }
