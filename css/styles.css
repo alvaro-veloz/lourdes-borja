@@ -437,6 +437,7 @@ main section[id] {
    ------------------------------------------------------------ */
 .hero {
   min-height: 100vh;
+  background: #2a0d24;
   min-height: 100dvh;
   position: relative;
   display: flex;
@@ -449,6 +450,7 @@ main section[id] {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: #2a0d24;
 }
 
 .hero__video,
@@ -743,6 +745,7 @@ video.hero__video {
    ------------------------------------------------------------ */
 .section {
   padding: clamp(56px, 10vh, 120px) var(--pad);
+  background: var(--bg);
 }
 
 .section__inner {

@@ -52,7 +52,10 @@
   }
 
   if (navToggle && navMenu) {
-    navToggle.addEventListener("click", toggleNav);
+    navToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleNav();
+    });
     navLinks.forEach(function (a) {
       a.addEventListener("click", function () {
         if (window.matchMedia("(max-width: 900px)").matches) closeNav();
@@ -61,6 +64,15 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeNav();
     });
+    // Cerrar al tocar cualquier parte fuera del nav
+    document.addEventListener("click", function (e) {
+      if (!nav || !nav.classList.contains("nav--open")) return;
+      if (!nav.contains(e.target)) closeNav();
+    });
+    // Cerrar al hacer scroll (comportamiento natural en móvil)
+    window.addEventListener("scroll", function () {
+      if (nav && nav.classList.contains("nav--open")) closeNav();
+    }, { passive: true, once: false });
   }
 
   window.addEventListener("resize", function () {
