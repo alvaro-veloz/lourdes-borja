@@ -177,4 +177,27 @@
       onScroll();
     });
   }
+
+  // ── HERO ANIMACIONES DE ENTRADA ──
+  var heroEl = document.querySelector(".hero");
+  if (heroEl) {
+    // Pequeño delay para que el navegador pinte primero
+    requestAnimationFrame(function () {
+      setTimeout(function () {
+        heroEl.classList.add("hero--loaded");
+      }, 80);
+    });
+  }
+
+  // ── PARALLAX SUTIL EN SCROLL ──
+  var heroWrap = document.querySelector(".hero__video-wrap");
+  if (heroWrap) {
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      // Solo cuando el hero es visible
+      if (y < window.innerHeight) {
+        heroWrap.style.transform = "translateY(" + (y * 0.28) + "px)";
+      }
+    }, { passive: true });
+  }
 })();

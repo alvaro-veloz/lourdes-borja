@@ -535,35 +535,87 @@ video.hero__video {
 .hero__eyebrow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
-.hero__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-light);
-  flex-shrink: 0;
-  animation: pulse 2.5s ease-in-out infinite;
+.hero__eyebrow-line {
+  display: block;
+  flex: 1;
+  max-width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.35);
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* ── CLIP REVEAL — título entra de abajo hacia arriba ── */
+.hero__title-line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.08;
+}
 
-  50% {
-    opacity: 0.5;
-    transform: scale(0.7);
-  }
+.hero__title-line span {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+}
+
+/* ── STAGGERED ENTRADA — cada elemento espera su turno ── */
+.hero__anim-1,
+.hero__anim-2 .hero__title-line span,
+.hero__anim-3,
+.hero__anim-4,
+.hero__anim-5 {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Cuando el hero carga — clase .hero--loaded se añade por JS */
+.hero--loaded .hero__anim-1 {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.hero--loaded .hero__anim-2 .hero__title-line:nth-child(1) span {
+  animation: heroClipUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+.hero--loaded .hero__anim-2 .hero__title-line:nth-child(2) span {
+  animation: heroClipUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both;
+}
+.hero--loaded .hero__anim-2 .hero__title-line:nth-child(3) span {
+  animation: heroClipUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.51s both;
+}
+
+.hero--loaded .hero__anim-3 {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.65s both;
+}
+
+.hero--loaded .hero__anim-4 {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+.hero--loaded .hero__anim-5 {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.95s both;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroClipUp {
+  from { opacity: 0; transform: translateY(110%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PARALLAX — imagen se mueve lento al scroll ── */
+.hero__video-wrap {
+  will-change: transform;
+  transition: transform 0.05s linear;
 }
 
 .hero__grid {
@@ -619,7 +671,7 @@ video.hero__video {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 500;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .btn--primary {
@@ -630,8 +682,13 @@ video.hero__video {
 }
 
 .btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px -6px color-mix(in srgb, var(--primary) 70%, transparent);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 36px -6px color-mix(in srgb, var(--primary) 70%, transparent);
+}
+
+.btn--primary:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.1s;
 }
 
 .btn--ghost-light {
@@ -643,6 +700,13 @@ video.hero__video {
 
 .btn--ghost-light:hover {
   background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.6);
+}
+
+.btn--ghost-light:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.1s;
 }
 
 .btn--ghost {
