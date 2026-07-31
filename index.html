@@ -145,9 +145,12 @@
 
           Si la imagen/video no carga (404, ruta mal), se muestra el bloque placeholder quitando "hidden".
         -->
-        <img class="hero__video" src="hero.webp" alt="" width="1920" height="1080" decoding="async" fetchpriority="high" />
+          <video class="hero__video" autoplay muted loop playsinline poster="tu-poster.jpg">
+                <source src="hero.mp4" type="video/mp4" />
+              </video>
+        <!-- <img class="hero__video" src="hero.webp" alt="" width="1920" height="1080" decoding="async" fetchpriority="high" />
         <div class="hero__video-placeholder" hidden>
-          <span>Coloca aquí tu video, gif o imagen</span>
+          <span>Coloca aquí tu video, gif o imagen</span>-->
           <strong>Tu salud, en buenas manos.</strong>
         </div>
       </div>
