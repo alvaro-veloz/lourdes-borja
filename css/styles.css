@@ -1332,6 +1332,17 @@ video.hero__video {
   color: var(--accent-light);
 }
 
+.contact__d-social {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.contact__d-social span {
+  opacity: 0.35;
+  font-size: 13px;
+}
+
 .contact__card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1433,6 +1444,30 @@ video.hero__video {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.4);
   margin-top: 4px;
+}
+
+.foot__social {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.foot__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.foot__social a:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 .foot__nav {
