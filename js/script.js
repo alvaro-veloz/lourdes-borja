@@ -64,12 +64,10 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") closeNav();
     });
-    // Cerrar al tocar cualquier parte fuera del nav
     document.addEventListener("click", function (e) {
       if (!nav || !nav.classList.contains("nav--open")) return;
       if (!nav.contains(e.target)) closeNav();
     });
-    // Cerrar al hacer scroll (comportamiento natural en móvil)
     window.addEventListener("scroll", function () {
       if (nav && nav.classList.contains("nav--open")) closeNav();
     }, { passive: true, once: false });
@@ -153,7 +151,7 @@
     });
   });
 
-  // ── Botón flotante de paleta (móvil) ──
+  // Botón flotante de paleta (móvil)
   const paletteBar = document.getElementById("palette-bar");
   const paletteToggle = document.getElementById("palette-toggle");
 
@@ -204,10 +202,9 @@
     });
   }
 
-  // ── HERO ANIMACIONES DE ENTRADA ──
+  // Animación de entrada del hero
   var heroEl = document.querySelector(".hero");
   if (heroEl) {
-    // Pequeño delay para que el navegador pinte primero
     requestAnimationFrame(function () {
       setTimeout(function () {
         heroEl.classList.add("hero--loaded");
@@ -215,12 +212,11 @@
     });
   }
 
-  // ── PARALLAX SUTIL EN SCROLL ──
+  // Parallax sutil en scroll
   var heroWrap = document.querySelector(".hero__video-wrap");
   if (heroWrap) {
     window.addEventListener("scroll", function () {
       var y = window.scrollY;
-      // Solo cuando el hero es visible
       if (y < window.innerHeight) {
         heroWrap.style.transform = "translateY(" + (y * 0.28) + "px)";
       }

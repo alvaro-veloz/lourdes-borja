@@ -1,10 +1,4 @@
-/* ============================================================
-   Lou Giabor — estilos principales
-   ============================================================ */
 
-/* ------------------------------------------------------------
-   Variables — base
-   ------------------------------------------------------------ */
 :root {
   --bg: #faf6f8;
   --bg-soft: #f2eaef;
@@ -94,9 +88,6 @@ body[data-palette="salud"] {
   --line: #a8d8c0;
 }
 
-/* ------------------------------------------------------------
-   Reset & base
-   ------------------------------------------------------------ */
 *,
 *::before,
 *::after {
@@ -168,9 +159,6 @@ main section[id] {
   scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
-/* ------------------------------------------------------------
-   Nav
-   ------------------------------------------------------------ */
 .nav {
   position: fixed;
   top: 0;
@@ -315,7 +303,6 @@ main section[id] {
   height: 15px;
 }
 
-/* Menú móvil — botón */
 .nav__toggle {
   display: none;
   flex-direction: column;
@@ -328,6 +315,7 @@ main section[id] {
   flex-shrink: 0;
 }
 
+/* Menú móvil — botón */
 .nav__toggle span {
   display: block;
   width: 22px;
@@ -350,9 +338,6 @@ main section[id] {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ------------------------------------------------------------
-   Palette switcher (escritorio)
-   ------------------------------------------------------------ */
 .palette-switcher {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
@@ -432,9 +417,7 @@ main section[id] {
   background: linear-gradient(135deg, #1a7a50, #4a8a1a);
 }
 
-/* ------------------------------------------------------------
-   Hero
-   ------------------------------------------------------------ */
+/* Hero */
 .hero {
   min-height: 100vh;
   background: #2a0d24;
@@ -471,7 +454,6 @@ video.hero__video {
   outline: none;
 }
 
-/* Con [hidden], el gradiente no debe mostrarse ni tapar la imagen (algunos navegadores respetan mal hidden + display del autor). */
 .hero__video-placeholder[hidden] {
   display: none !important;
 }
@@ -533,7 +515,6 @@ video.hero__video {
   text-align: center;
 }
 
-/* ── CLIP REVEAL — título entra de abajo hacia arriba ── */
 .hero__title-line {
   display: block;
   overflow: hidden;
@@ -546,7 +527,6 @@ video.hero__video {
   opacity: 0;
 }
 
-/* ── STAGGERED ENTRADA — cada elemento espera su turno ── */
 .hero__anim-2 .hero__title-line span,
 .hero__anim-3,
 .hero__anim-4 {
@@ -554,7 +534,6 @@ video.hero__video {
   transform: translateY(20px);
 }
 
-/* Cuando el hero carga — clase .hero--loaded se añade por JS */
 .hero--loaded .hero__anim-2 .hero__title-line:nth-child(1) span {
   animation: heroClipUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 }
@@ -583,7 +562,6 @@ video.hero__video {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── PARALLAX — imagen se mueve lento al scroll ── */
 .hero__video-wrap {
   will-change: transform;
   transition: transform 0.05s linear;
@@ -730,9 +708,6 @@ video.hero__video {
   }
 }
 
-/* ------------------------------------------------------------
-   Secciones
-   ------------------------------------------------------------ */
 .section {
   padding: clamp(56px, 10vh, 120px) var(--pad);
   background: var(--bg);
@@ -927,7 +902,6 @@ video.hero__video {
   color: var(--primary);
 }
 
-/* Servicios */
 .services__intro {
   font-size: 17px;
   color: var(--ink-soft);
@@ -942,6 +916,7 @@ video.hero__video {
   gap: 20px;
 }
 
+/* Servicios */
 .svc {
   background: var(--bg-soft);
   border-radius: var(--radius-lg);
@@ -1422,10 +1397,10 @@ video.hero__video {
   max-width: var(--max);
   margin: 0 auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 28px;
 }
 
@@ -1448,6 +1423,7 @@ video.hero__video {
 
 .foot__social {
   display: flex;
+  justify-content: center;
   gap: 8px;
   margin-top: 12px;
 }
@@ -1472,6 +1448,7 @@ video.hero__video {
 
 .foot__nav {
   display: flex;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -1565,7 +1542,7 @@ video.hero__video {
   height: 28px;
 }
 
-/* Selector de paleta móvil — botón flotante compacto (no ocupa toda la franja inferior) */
+/* Selector de paleta (móvil) */
 .palette-bar {
   display: none;
   position: fixed;
@@ -1633,16 +1610,12 @@ video.hero__video {
   margin-right: 2px;
 }
 
-/* ------------------------------------------------------------
-   Responsive
-   ------------------------------------------------------------ */
 @media (max-width: 900px) {
   :root {
     --nav-h: 64px;
   }
 
-  /* Nav oculto al cargar — aparece solo al hacer scroll */
-  .nav {
+    .nav {
     opacity: 0;
     transform: translateY(-100%);
     transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
@@ -1655,8 +1628,7 @@ video.hero__video {
     pointer-events: auto;
   }
 
-  /* Cuando el menú está abierto también se muestra */
-  .nav.nav--open {
+    .nav.nav--open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -1761,6 +1733,7 @@ video.hero__video {
 
   .foot__inner {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
