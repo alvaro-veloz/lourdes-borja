@@ -274,36 +274,6 @@ main section[id] {
   transform: scaleX(1);
 }
 
-.nav__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: var(--primary);
-  color: var(--white);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: 500;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  box-shadow: 0 6px 20px -4px color-mix(in srgb, var(--primary) 50%, transparent);
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.nav__cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px -4px color-mix(in srgb, var(--primary) 60%, transparent);
-}
-
-.nav__cta img {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
 .nav__toggle {
   display: none;
   flex-direction: column;
@@ -728,31 +698,55 @@ video.hero__video {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  animation: float 3s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.55);
+  transition: opacity 0.4s ease;
+}
+
+.hero__scroll.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hero__scroll-line {
+  position: relative;
+  display: block;
   width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+  height: 42px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.45), transparent);
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
+.hero__scroll-seed {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-50%);
+  animation: seedFall 2.6s cubic-bezier(0.55, 0, 0.85, 0.35) infinite;
+}
 
-  50% {
-    transform: translateX(-50%) translateY(6px);
+@keyframes seedFall {
+  0% {
+    top: -1px;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 9px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-seed {
+    animation: none;
+    top: 4px;
+    opacity: 0.8;
   }
 }
 
@@ -2338,10 +2332,6 @@ video.hero__video {
     display: none;
   }
 
-  .nav__cta {
-    margin-left: 0;
-  }
-
   .hero__content {
     padding-bottom: clamp(28px, 6vh, 56px);
   }
@@ -2459,14 +2449,6 @@ video.hero__video {
 
   .contact__card {
     padding: 24px;
-  }
-
-  .nav__cta span {
-    display: none;
-  }
-
-  .nav__cta {
-    padding: 10px 12px;
   }
 }
 

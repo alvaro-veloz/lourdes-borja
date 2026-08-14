@@ -78,10 +78,13 @@
     setNavHeightVar();
   });
 
+  const heroScroll = document.querySelector(".hero__scroll");
+
   function onScroll() {
     const y = window.scrollY;
     if (nav) nav.classList.toggle("scrolled", y > 24);
     if (fab) fab.classList.toggle("shown", y > 500);
+    if (heroScroll) heroScroll.classList.toggle("is-hidden", y > 80);
 
     var current = "inicio";
     var offset = getNavOffset();
