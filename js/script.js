@@ -96,7 +96,20 @@
     });
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  var mainScrollTicking = false;
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!mainScrollTicking) {
+        mainScrollTicking = true;
+        requestAnimationFrame(function () {
+          onScroll();
+          mainScrollTicking = false;
+        });
+      }
+    },
+    { passive: true }
+  );
 
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
@@ -491,24 +504,45 @@
         if (!raf) raf = requestAnimationFrame(tick);
       });
     } else {
-      window.addEventListener("scroll", function () {
-        var y = window.scrollY;
-        if (y > window.innerHeight) return;
-        var progress = y / window.innerHeight;
-        wrap.style.setProperty("--px", "0px");
-        wrap.style.setProperty("--py", (progress * -36).toFixed(2) + "px");
-      }, { passive: true });
+      var doodleTouchTicking = false;
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (doodleTouchTicking) return;
+          doodleTouchTicking = true;
+          requestAnimationFrame(function () {
+            var y = window.scrollY;
+            if (y <= window.innerHeight) {
+              var progress = y / window.innerHeight;
+              wrap.style.setProperty("--px", "0px");
+              wrap.style.setProperty("--py", (progress * -36).toFixed(2) + "px");
+            }
+            doodleTouchTicking = false;
+          });
+        },
+        { passive: true }
+      );
     }
   })();
 
   // Parallax sutil en scroll
   var heroWrap = document.querySelector(".hero__video-wrap");
   if (heroWrap) {
-    window.addEventListener("scroll", function () {
-      var y = window.scrollY;
-      if (y < window.innerHeight) {
-        heroWrap.style.transform = "translateY(" + (y * 0.28) + "px)";
-      }
-    }, { passive: true });
+    var heroParallaxTicking = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (heroParallaxTicking) return;
+        heroParallaxTicking = true;
+        requestAnimationFrame(function () {
+          var y = window.scrollY;
+          if (y < window.innerHeight) {
+            heroWrap.style.transform = "translateY(" + (y * 0.28) + "px)";
+          }
+          heroParallaxTicking = false;
+        });
+      },
+      { passive: true }
+    );
   }
 })();
