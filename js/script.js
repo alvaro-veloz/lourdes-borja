@@ -85,15 +85,6 @@
     if (nav) nav.classList.toggle("scrolled", y > 24);
     if (fab) fab.classList.toggle("shown", y > 500);
     if (heroScroll) heroScroll.classList.toggle("is-hidden", y > 80);
-
-    var current = "inicio";
-    var offset = getNavOffset();
-    sections.forEach(function (s) {
-      if (s.offsetTop <= y + offset) current = s.id;
-    });
-    navLinks.forEach(function (a) {
-      a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-    });
   }
 
   var mainScrollTicking = false;
@@ -110,6 +101,27 @@
     },
     { passive: true }
   );
+
+  // Sección activa del nav: IntersectionObserver en vez de leer posiciones en cada scroll
+  (function activeSectionObserver() {
+    if (!sections.length || !navLinks.length) return;
+    var sectionObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            navLinks.forEach(function (a) {
+              a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+            });
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+    sections.forEach(function (s) {
+      sectionObserver.observe(s);
+    });
+  })();
 
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
@@ -503,46 +515,7 @@
         targetY = 0;
         if (!raf) raf = requestAnimationFrame(tick);
       });
-    } else {
-      var doodleTouchTicking = false;
-      window.addEventListener(
-        "scroll",
-        function () {
-          if (doodleTouchTicking) return;
-          doodleTouchTicking = true;
-          requestAnimationFrame(function () {
-            var y = window.scrollY;
-            if (y <= window.innerHeight) {
-              var progress = y / window.innerHeight;
-              wrap.style.setProperty("--px", "0px");
-              wrap.style.setProperty("--py", (progress * -36).toFixed(2) + "px");
-            }
-            doodleTouchTicking = false;
-          });
-        },
-        { passive: true }
-      );
     }
   })();
 
-  // Parallax sutil en scroll
-  var heroWrap = document.querySelector(".hero__video-wrap");
-  if (heroWrap) {
-    var heroParallaxTicking = false;
-    window.addEventListener(
-      "scroll",
-      function () {
-        if (heroParallaxTicking) return;
-        heroParallaxTicking = true;
-        requestAnimationFrame(function () {
-          var y = window.scrollY;
-          if (y < window.innerHeight) {
-            heroWrap.style.transform = "translateY(" + (y * 0.28) + "px)";
-          }
-          heroParallaxTicking = false;
-        });
-      },
-      { passive: true }
-    );
-  }
 })();
