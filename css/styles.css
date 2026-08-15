@@ -171,6 +171,8 @@ main section[id] {
   padding-left: max(var(--pad), env(safe-area-inset-left));
   padding-right: max(var(--pad), env(safe-area-inset-right));
   padding-bottom: 12px;
+  transform: translateZ(0);
+  will-change: transform;
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -315,7 +317,8 @@ main section[id] {
   position: fixed;
   right: max(16px, env(safe-area-inset-right));
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateZ(0) translateY(-50%);
+  will-change: transform, opacity;
   z-index: 90;
   display: flex;
   flex-direction: column;
@@ -2134,20 +2137,21 @@ video.hero__video {
   justify-content: center;
   box-shadow: 0 8px 28px -4px rgba(37, 211, 102, 0.55);
   opacity: 0;
-  transform: scale(0.85) translateY(10px);
+  transform: translateZ(0) scale(0.85) translateY(10px);
+  will-change: transform, opacity;
   transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
   pointer-events: none;
 }
 
 .fab.shown {
   opacity: 1;
-  transform: scale(1) translateY(0);
+  transform: translateZ(0) scale(1) translateY(0);
   pointer-events: auto;
 }
 
 .fab:hover {
   box-shadow: 0 12px 36px -4px rgba(37, 211, 102, 0.7);
-  transform: scale(1.08) translateY(-2px);
+  transform: translateZ(0) scale(1.08) translateY(-2px);
 }
 
 .fab svg {
@@ -2162,6 +2166,8 @@ video.hero__video {
   left: max(16px, env(safe-area-inset-left));
   bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 98;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .palette-bar__toggle {
@@ -2278,14 +2284,14 @@ video.hero__video {
 
     .nav {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateZ(0) translateY(-100%);
     transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
     pointer-events: none;
   }
 
   .nav.scrolled {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateZ(0) translateY(0);
     pointer-events: auto;
     background: color-mix(in srgb, var(--bg) 97%, transparent);
     backdrop-filter: none;
@@ -2294,7 +2300,7 @@ video.hero__video {
 
     .nav.nav--open {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateZ(0) translateY(0);
     pointer-events: auto;
   }
 
