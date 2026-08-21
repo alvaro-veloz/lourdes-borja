@@ -2282,6 +2282,10 @@ video.hero__video {
     --nav-h: 64px;
   }
 
+  .hero__video {
+    object-position: 0% center;
+  }
+
     .nav {
     opacity: 0;
     transform: translateZ(0) translateY(-100%);
