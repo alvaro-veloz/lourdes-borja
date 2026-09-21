@@ -518,4 +518,183 @@
     }
   })();
 
+  // Agenda demo: flujo visual en tres pasos, sin enviar datos.
+  (function bookingExperience() {
+    var booking = document.getElementById("booking");
+    var form = document.getElementById("booking-form");
+    if (!booking || !form) return;
+
+    var isEmbedded = booking.classList.contains("booking--embedded");
+    var contactSection = document.getElementById("contacto");
+    if (isEmbedded && contactSection && contactSection.parentNode) {
+      contactSection.parentNode.insertBefore(booking, contactSection);
+    }
+
+    var openers = document.querySelectorAll(".js-booking-open");
+    var closers = booking.querySelectorAll("[data-booking-close]");
+    var steps = booking.querySelectorAll(".booking__step");
+    var progress = booking.querySelectorAll("[data-progress]");
+    var progressBar = booking.querySelector(".booking__progress");
+    var success = booking.querySelector(".booking__success");
+    var selectedDate = "";
+    var selectedTime = "";
+    var currentStep = 1;
+    var lastFocus = null;
+
+    function populateWorkWeek() {
+      var dayButtons = Array.prototype.slice.call(form.querySelectorAll(".booking-day"));
+      if (!dayButtons.length) return;
+      var today = new Date();
+      today.setHours(12, 0, 0, 0);
+      var weekday = today.getDay();
+      var monday = new Date(today);
+      if (weekday === 0) monday.setDate(today.getDate() + 1);
+      else if (weekday === 6) monday.setDate(today.getDate() + 2);
+      else monday.setDate(today.getDate() - (weekday - 1));
+
+      var fullDays = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+      var shortDays = ["Lun", "Mar", "Mié", "Jue", "Vie"];
+      dayButtons.forEach(function (button, index) {
+        var date = new Date(monday);
+        date.setDate(monday.getDate() + index);
+        var month = new Intl.DateTimeFormat("es-EC", { month: "short" }).format(date).replace(".", "");
+        var dateNumber = button.querySelector("strong");
+        var dayName = button.querySelector("small");
+        var monthName = button.querySelector(":scope > span");
+        if (dayName) dayName.textContent = shortDays[index];
+        if (dateNumber) dateNumber.textContent = String(date.getDate());
+        if (monthName) monthName.textContent = month;
+        button.dataset.date = fullDays[index] + " " + date.getDate() + " de " + month;
+        button.disabled = true;
+        button.classList.remove("is-selected");
+        button.setAttribute("aria-label", button.dataset.date + ", reservado");
+      });
+      selectedDate = "";
+    }
+
+    populateWorkWeek();
+
+    function selectService(value) {
+      var option = form.querySelector('input[name="service"][value="' + value + '"]');
+      if (option) option.checked = true;
+    }
+
+    function showStep(number) {
+      currentStep = number;
+      steps.forEach(function (step) {
+        step.classList.toggle("is-active", Number(step.dataset.step) === number);
+      });
+      progress.forEach(function (item) {
+        var n = Number(item.dataset.progress);
+        item.classList.toggle("is-active", n === number);
+        item.classList.toggle("is-done", n < number);
+      });
+      var active = booking.querySelector('.booking__step[data-step="' + number + '"]');
+      if (active) active.scrollIntoView({ block: "start" });
+    }
+
+    function openBooking(service) {
+      lastFocus = document.activeElement;
+      if (service) selectService(service);
+      if (isEmbedded) {
+        success.classList.remove("is-active");
+        if (progressBar) progressBar.style.display = "flex";
+        showStep(1);
+        booking.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      booking.classList.add("is-open");
+      booking.setAttribute("aria-hidden", "false");
+      document.body.classList.add("booking-open");
+      setTimeout(function () {
+        var close = booking.querySelector(".booking__close");
+        if (close) close.focus();
+      }, 80);
+    }
+
+    function closeBooking() {
+      if (isEmbedded) {
+        success.classList.remove("is-active");
+        if (progressBar) progressBar.style.display = "flex";
+        showStep(1);
+        booking.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      booking.classList.remove("is-open");
+      booking.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("booking-open");
+      if (lastFocus) lastFocus.focus();
+      setTimeout(function () {
+        success.classList.remove("is-active");
+        form.classList.remove("is-complete");
+        if (progressBar) progressBar.style.display = "flex";
+        showStep(1);
+      }, 450);
+    }
+
+    function updateSummary() {
+      var service = form.querySelector('input[name="service"]:checked');
+      var mode = form.querySelector('input[name="mode"]:checked');
+      var main = document.getElementById("booking-summary");
+      var time = document.getElementById("booking-summary-time");
+      if (main) main.textContent = (service ? service.value : "Consulta inicial") + " · " + (mode ? mode.value : "Online");
+      if (time) time.textContent = selectedDate + ", " + (selectedTime || "09:00");
+    }
+
+    openers.forEach(function (opener) {
+      opener.addEventListener("click", function (event) {
+        event.preventDefault();
+        openBooking(opener.dataset.service);
+      });
+    });
+    closers.forEach(function (closer) { closer.addEventListener("click", closeBooking); });
+
+    form.querySelectorAll("[data-next]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        if (button.disabled) return;
+        if (currentStep < 3) {
+          if (currentStep === 2) updateSummary();
+          showStep(currentStep + 1);
+        }
+      });
+    });
+    form.querySelectorAll("[data-back]").forEach(function (button) {
+      button.addEventListener("click", function () { showStep(Math.max(1, currentStep - 1)); });
+    });
+    form.querySelectorAll(".booking-day").forEach(function (day) {
+      day.addEventListener("click", function () {
+        form.querySelectorAll(".booking-day").forEach(function (d) { d.classList.remove("is-selected"); });
+        day.classList.add("is-selected");
+        selectedDate = day.dataset.date;
+      });
+    });
+    form.querySelectorAll("[data-time]").forEach(function (slot) {
+      slot.addEventListener("click", function () {
+        form.querySelectorAll("[data-time]").forEach(function (s) { s.classList.remove("is-selected"); });
+        slot.classList.add("is-selected");
+        selectedTime = slot.dataset.time;
+        var continueButton = form.querySelector('.booking__step[data-step="2"] [data-next]');
+        if (continueButton) continueButton.disabled = false;
+      });
+    });
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      steps.forEach(function (step) { step.classList.remove("is-active"); });
+      if (progressBar) progressBar.style.display = "none";
+      success.classList.add("is-active");
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (!booking.classList.contains("is-open")) return;
+      if (event.key === "Escape") closeBooking();
+      if (event.key !== "Tab") return;
+      var focusable = Array.prototype.slice.call(booking.querySelectorAll('button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href]')).filter(function (el) { return el.offsetParent !== null; });
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+  })();
+
 })();

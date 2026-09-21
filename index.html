@@ -88,7 +88,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..650,0..100,0..1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="css/styles.css" />
   <script type="module" src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.26/dist/dotlottie-wc.js"></script>
@@ -185,9 +185,9 @@
           Nutrición clínica para toda la familia, con evidencia científica.
         </p>
         <div class="hero__actions hero__anim-4">
-          <a class="btn btn--primary btn--sm" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta." target="_blank" rel="noopener">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" width="16" height="16" />
+          <a class="btn btn--primary btn--sm js-booking-open" href="#agendar" data-service="Consulta inicial">
             Agendar consulta
+            <span class="btn__arrow" aria-hidden="true">→</span>
           </a>
         </div>
         <svg class="hero__signature" viewBox="0 0 220 40" fill="none" aria-hidden="true">
@@ -243,7 +243,8 @@
           <p class="about__prose reveal reveal-delay-2">
             Atiendo en San Miguel de Bolívar y de forma online a pacientes en toda la provincia Bolívar.
           </p>
-          <ul class="about__pills reveal reveal-delay-3">
+          <p class="about__pills-label reveal reveal-delay-3">Áreas en las que puedo acompañarte <span aria-hidden="true">↘</span></p>
+          <ul class="about__pills reveal reveal-delay-3" aria-label="Especialidades de nutrición">
             <li>Prevención clínica</li>
             <li>Diabetes & hipertensión</li>
             <li>Salud digestiva</li>
@@ -270,6 +271,7 @@
           Tres formas de trabajar contigo — para toda la familia, online o presenciales en San Miguel de Bolívar. Adaptados a tu momento de vida.
         </p>
 
+        <p class="services__swipe-hint" aria-hidden="true">Desliza y encuentra tu opción <span>↝</span></p>
         <div class="services__grid">
           <article class="svc reveal">
             <div class="svc__head">
@@ -285,7 +287,7 @@
             </ul>
             <div class="svc__foot">
               <span class="svc__price">desde $60</span>
-              <a class="svc__link" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20interesa%20la%20consulta%20inicial." target="_blank" rel="noopener">Reservar →</a>
+              <a class="svc__link js-booking-open" href="#agendar" data-service="Consulta inicial">Reservar →</a>
             </div>
           </article>
 
@@ -303,7 +305,7 @@
             </ul>
             <div class="svc__foot">
               <span class="svc__price">desde $140</span>
-              <a class="svc__link" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20interesa%20el%20plan%20personalizado." target="_blank" rel="noopener">Reservar →</a>
+              <a class="svc__link js-booking-open" href="#agendar" data-service="Plan personalizado">Reservar →</a>
             </div>
           </article>
 
@@ -321,7 +323,7 @@
             </ul>
             <div class="svc__foot">
               <span class="svc__price">desde $90/mes</span>
-              <a class="svc__link" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20interesa%20el%20acompa%C3%B1amiento." target="_blank" rel="noopener">Reservar →</a>
+              <a class="svc__link js-booking-open" href="#agendar" data-service="Acompañamiento mensual">Reservar →</a>
             </div>
           </article>
         </div>
@@ -689,7 +691,7 @@
           </div>
         </div>
 
-        <a class="contact__card" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta." target="_blank" rel="noopener">
+        <a class="contact__card js-booking-open" href="#agendar" data-service="Consulta inicial">
           <span class="contact__card-leaf" aria-hidden="true">
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M20 82C18 52 34 20 78 12c6 34-8 66-40 76-8 2-14 0-18-6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -698,15 +700,15 @@
           </span>
           <div class="contact__card-top">
             <span aria-hidden="true">ʕ•́ᴥ•̀ʔっ</span>
-            Respuesta en menos de 24 h
+            Horarios disponibles esta semana
           </div>
           <div class="contact__card-mid">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" width="48" height="48" />
-            <h3>Escríbeme por WhatsApp</h3>
-            <p>Cuéntame brevemente qué buscas y te respondo con disponibilidad y el siguiente paso.</p>
+            <span class="contact__calendar-icon" aria-hidden="true">23</span>
+            <h3>Encuentra tu momento</h3>
+            <p>Elige servicio, modalidad y horario en una agenda visual pensada para ti.</p>
           </div>
           <div class="contact__card-foot">
-            <span>Iniciar conversación</span>
+            <span>Ver horarios disponibles</span>
             <span aria-hidden="true">→</span>
           </div>
         </a>
@@ -756,6 +758,56 @@
       <span class="foot__credit-line"></span>
     </div>
   </footer>
+
+  <div class="booking booking--embedded" id="booking" aria-hidden="false">
+    <button class="booking__backdrop" type="button" data-booking-close aria-label="Cerrar agenda"></button>
+    <section class="booking__panel" role="region" aria-labelledby="booking-title">
+      <button class="booking__close" type="button" data-booking-close aria-label="Cerrar"><span></span><span></span></button>
+      <aside class="booking__aside">
+        <div><span class="booking__eyebrow">Tu espacio con Lou</span><h2 id="booking-title">Un momento para<br><em>sentirte mejor.</em></h2><p>Elige cómo quieres empezar. Te tomará menos de un minuto.</p></div>
+        <div class="booking__aside-bottom"><div class="booking__portrait"><img src="lou.webp" alt="Lou Borja, nutricionista" /></div><div><strong>Lou Borja</strong><span>Nutricionista clínica</span></div></div>
+        <span class="booking__orb booking__orb--one" aria-hidden="true"></span><span class="booking__orb booking__orb--two" aria-hidden="true"></span>
+      </aside>
+      <div class="booking__main">
+        <div class="booking__progress" aria-label="Progreso"><span class="is-active" data-progress="1">01</span><i></i><span data-progress="2">02</span><i></i><span data-progress="3">03</span></div>
+        <form id="booking-form">
+          <div class="booking__step is-active" data-step="1">
+            <div class="booking__step-head"><span>Paso 1 de 3</span><h3>¿Qué necesitas?</h3><p>Selecciona el acompañamiento que más se acerca a tu momento actual.</p></div>
+            <div class="booking__services" role="radiogroup" aria-label="Servicio">
+              <label class="booking-option"><input type="radio" name="service" value="Consulta inicial" checked /><span class="booking-option__icon">01</span><span><strong>Consulta inicial</strong><small>Evaluación completa · 75 min</small></span><b>→</b></label>
+              <label class="booking-option"><input type="radio" name="service" value="Plan personalizado" /><span class="booking-option__icon">02</span><span><strong>Plan personalizado</strong><small>Tu hoja de ruta · 4 semanas</small></span><b>→</b></label>
+              <label class="booking-option"><input type="radio" name="service" value="Acompañamiento mensual" /><span class="booking-option__icon">03</span><span><strong>Acompañamiento</strong><small>Seguimiento cercano · mensual</small></span><b>→</b></label>
+            </div>
+            <div class="booking__mode"><span>Modalidad</span><label><input type="radio" name="mode" value="Online" checked><span>Online</span></label><label><input type="radio" name="mode" value="Presencial"><span>Presencial</span></label></div>
+            <button class="booking__next" type="button" data-next>Elegir fecha <span>→</span></button>
+          </div>
+          <div class="booking__step booking__step--calendar" data-step="2">
+            <div class="booking__step-head"><span>Paso 2 de 3</span><h3>Elige tu momento</h3><p>Horarios disponibles en tu zona horaria.</p></div>
+            <div class="booking__calendar-shell">
+              <span class="booking__calendar-note">Una pausa que nutre</span>
+              <div class="booking__fruit-motion" aria-hidden="true"><dotlottie-wc src="frutas.lottie" autoplay loop speed="0.55"></dotlottie-wc></div>
+              <svg class="booking__vine" viewBox="0 0 560 320" preserveAspectRatio="none" aria-hidden="true"><path d="M42 17C12 42 14 98 28 130c18 42-9 65-1 105 7 36 43 67 92 65h333c58 0 88-31 84-72-5-45 20-66 4-113-13-39 5-68-30-96-30-24-83-7-126-9L137 9C96 8 67-4 42 17Z" pathLength="100"/></svg>
+              <span class="booking__seed booking__seed--one">◌</span><span class="booking__seed booking__seed--two">·</span><span class="booking__seed booking__seed--three">〰</span>
+              <div class="booking__week">
+                <button type="button" class="booking-day" data-date="Lunes" disabled><i class="booking-day__carrot" aria-hidden="true">🥕</i><small>Lun</small><strong>—</strong><span>—</span><em class="booking-day__status">Reservado</em></button><button type="button" class="booking-day" data-date="Martes" disabled><i class="booking-day__carrot" aria-hidden="true">🥕</i><small>Mar</small><strong>—</strong><span>—</span><em class="booking-day__status">Reservado</em></button><button type="button" class="booking-day" data-date="Miércoles" disabled><i class="booking-day__carrot" aria-hidden="true">🥕</i><small>Mié</small><strong>—</strong><span>—</span><em class="booking-day__status">Reservado</em></button><button type="button" class="booking-day" data-date="Jueves" disabled><i class="booking-day__carrot" aria-hidden="true">🥕</i><small>Jue</small><strong>—</strong><span>—</span><em class="booking-day__status">Reservado</em></button><button type="button" class="booking-day" data-date="Viernes" disabled><i class="booking-day__carrot" aria-hidden="true">🥕</i><small>Vie</small><strong>—</strong><span>—</span><em class="booking-day__status">Reservado</em></button>
+              </div>
+              <p class="booking__timezone">◷ Hora de Ecuador · GMT−5</p>
+              <p class="booking__fully-booked"><span aria-hidden="true">〰</span> Esta semana está completa. Nuevos cupos próximamente.</p>
+              <div class="booking__slots" aria-label="Horarios no disponibles"><button type="button" data-time="09:00" disabled>09:00</button><button type="button" data-time="10:30" disabled>10:30</button><button type="button" data-time="12:00" disabled>12:00</button><button type="button" data-time="14:30" disabled>14:30</button><button type="button" data-time="16:00" disabled>16:00</button><button type="button" data-time="17:30" disabled>17:30</button></div>
+            </div>
+            <div class="booking__nav"><button type="button" data-back>← Volver</button><button class="booking__next" type="button" data-next disabled>Continuar <span>→</span></button></div>
+          </div>
+          <div class="booking__step" data-step="3">
+            <div class="booking__step-head"><span>Paso 3 de 3</span><h3>Cuéntame de ti</h3><p>Solo lo necesario para preparar nuestro encuentro.</p></div>
+            <div class="booking__fields"><label><span>Nombre</span><input name="name" type="text" placeholder="Tu nombre" required></label><label><span>WhatsApp</span><input name="phone" type="tel" placeholder="+593 00 000 0000" required></label><label class="booking__field-full"><span>¿Qué te gustaría trabajar?</span><textarea name="message" rows="3" placeholder="Cuéntame brevemente (opcional)"></textarea></label></div>
+            <div class="booking__summary"><span>Tu cita</span><strong id="booking-summary">Consulta inicial · Online</strong><small id="booking-summary-time">Lunes 23, 09:00</small></div>
+            <div class="booking__nav"><button type="button" data-back>← Volver</button><button class="booking__next" type="submit">Confirmar cita <span>→</span></button></div>
+          </div>
+          <div class="booking__success" aria-live="polite"><div class="booking__success-mark"><span>✓</span></div><span class="booking__eyebrow">Todo listo</span><h3>Tu espacio está<br><em>reservado.</em></h3><p>Esta es una demostración visual. En la versión final recibirías aquí la confirmación y los detalles de tu cita.</p><button type="button" data-booking-close>Volver al sitio</button></div>
+        </form>
+      </div>
+    </section>
+  </div>
 
   <a class="fab" id="fab" href="https://wa.me/593961981866?text=Hola%20Lou%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta." target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="white" width="28" height="28" aria-hidden="true">
